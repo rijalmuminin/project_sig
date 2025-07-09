@@ -95,5 +95,23 @@
                 <div data-i18n="Basic">Petugas</div>
               </a>
             </li>
+            <li class="menu-item">
+              <a href="{{route('kategori.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">Kategori</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{{route('fasilitas.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">Fasilitas</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{{route('ruangan.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">Ruangan</div>
+              </a>
+            </li>
           </ul>
         </aside>

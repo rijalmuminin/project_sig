@@ -9,6 +9,6 @@ class Fasilitas extends Model
     protected $fillable = ['nama_fasilitas'];
 
     public function fasilitas_ruangan(){
-        return $this->hasMany(Fasilitas_Ruangan::class, 'fasilitas_id');
+        return $this->hasMany(Fasilitas_Ruangan::class, 'fasilitas_id', 'ruangan_id');
     }
 }

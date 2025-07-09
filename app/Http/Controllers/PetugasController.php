@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PetugasController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Tampilkan semua data petugas.
      */
     public function index()
     {
@@ -17,7 +19,7 @@ class PetugasController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Tampilkan form tambah petugas.
      */
     public function create()
     {
@@ -25,40 +27,45 @@ class PetugasController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Simpan petugas baru ke database.
      */
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-        ],
-        [
-            'name' => 'Nama harus diisi',
-            'email' => 'Email harus diisi',
-            'password' => 'Password harus diisi',
+            'name' => 'required|unique:users,name',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:8',
+        ], [
+            'name.required' => 'Nama harus diisi',
+            'name.unique' => 'Nama sudah terdaftar',
+            'email.required' => 'Email harus diisi',
+            'email.email' => 'Format email tidak valid',
+            'email.unique' => 'Email sudah terdaftar',
+            'password.required' => 'Password harus diisi',
+            'password.min' => 'Password minimal 8 karakter',
         ]);
 
         $petugas = new User();
         $petugas->name = $request->name;
         $petugas->email = $request->email;
-        $petugas->password = $request->password;
+        $petugas->password = Hash::make($request->password); // hash password
         $petugas->save();
+
         toast('Data petugas berhasil ditambahkan', 'success');
         return redirect()->route('petugas.index');
     }
 
     /**
-     * Display the specified resource.
+     * Tampilkan detail petugas.
      */
     public function show(string $id)
     {
-        //
+        $petugas = User::findOrFail($id);
+        return view('admin.petugas.show', compact('petugas'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Tampilkan form edit petugas.
      */
     public function edit(string $id)
     {
@@ -67,38 +74,54 @@ class PetugasController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update data petugas di database.
      */
     public function update(Request $request, string $id)
     {
+        $petugas = User::findOrFail($id);
+
         $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-        ],
-        [
-            'name' => 'Nama harus diisi',
-            'email' => 'Email harus diisi',
-            'password' => 'Password harus diisi',
+            'name' => 'required|unique:users,name,' . $petugas->id,
+            'email' => 'required|email|unique:users,email,' . $petugas->id,
+            'password' => 'nullable|min:8',
+        ], [
+            'name.required' => 'Nama harus diisi',
+            'name.unique' => 'Nama sudah terdaftar',
+            'email.required' => 'Email harus diisi',
+            'email.email' => 'Format email tidak valid',
+            'email.unique' => 'Email sudah terdaftar',
+            'password.min' => 'Password minimal 8 karakter',
         ]);
 
-        $petugas = User::findOrFail($id);
         $petugas->name = $request->name;
         $petugas->email = $request->email;
-        $petugas->password = $request->password;
+
+        // Hanya update password jika diisi
+        if ($request->filled('password')) {
+            $petugas->password = Hash::make($request->password);
+        }
+
+        $petugas->save();
+
+        if ($petugas->isDirty()) {
         $petugas->save();
         toast('Data petugas berhasil diperbarui.', 'success');
-        return redirect()->route('petugas.index');
+    } else {
+        toast('Tidak ada data yang diubah.', 'info');
+    }
+
+    return redirect()->route('petugas.index');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Hapus data petugas.
      */
     public function destroy(string $id)
     {
         $petugas = User::findOrFail($id);
-        $petugas = User::delete();
-        toast('Petugas berhasil dihapus');
+        $petugas->delete();
+
+        toast('Petugas berhasil dihapus', 'success');
         return back();
     }
 }

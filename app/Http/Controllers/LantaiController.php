@@ -48,7 +48,7 @@ class LantaiController extends Controller
             'lantai' => $request->lantai,
         ]);
 
-        toast('Lantai berhasil ditambahkan.', 'success')->position('bottom-end');
+        toast('Lantai berhasil ditambahkan.', 'success');
         return redirect()->route('lantai.index');
     }
 
@@ -92,7 +92,7 @@ class LantaiController extends Controller
             'lantai' => $request->lantai,
         ]);
 
-        toast('Lantai berhasil diperbarui.', 'success')->position('bottom-end');
+        toast('Lantai berhasil diperbarui.', 'success');
         return redirect()->route('lantai.index');
     }
 
@@ -104,7 +104,7 @@ class LantaiController extends Controller
         $lantai = Lantai::findOrFail($id);
         $lantai->delete();
 
-        toast('Data berhasil dihapus.', 'success')->position('bottom-end');
+        toast('Data berhasil dihapus.', 'success');
         return back();
     }
 }

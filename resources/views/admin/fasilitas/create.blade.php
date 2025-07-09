@@ -6,7 +6,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    Tambah Gedung
+                    Tambah fasilitas
                 </div>
                 <div class="card-body">
 
@@ -21,14 +21,14 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('gedung.store') }}" method="post" class="form">
+                    <form action="{{ route('fasilitas.store') }}" method="post" class="form">
                         @csrf
 
-                        <label for="nama_gedung">Nama Gedung</label>
-                        <input type="text" name="nama_gedung"
-                               class="form-control @error('nama_gedung') is-invalid @enderror"
-                               value="{{ old('nama_gedung') }}">
-                        @error('nama_gedung')
+                        <label for="nama_fasilitas">Nama fasilitas</label>
+                        <input type="text" name="nama_fasilitas"
+                               class="form-control @error('nama_fasilitas') is-invalid @enderror"
+                               value="{{ old('nama_fasilitas') }}">
+                        @error('nama_fasilitas')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
 

@@ -2,64 +2,86 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Fasilitas;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class FasilitasController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan semua data fasilitas.
      */
     public function index()
     {
-        $ruangans = Ruangan::all();
-        return view('ruangan.index', compact('ruangans'));
+        $fasilitas = Fasilitas::all();
+        confirmDelete('Data ini akan dihapus secara permanen', 'Apa anda yakin?');
+        return view('admin.fasilitas.index', compact('fasilitas'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Menampilkan form tambah fasilitas.
      */
     public function create()
     {
-        //
+        return view('admin.fasilitas.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan data fasilitas baru.
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_fasilitas' => 'required|unique:fasilitas,nama_fasilitas',
+        ], [
+            'nama_fasilitas.required' => 'Nama fasilitas wajib diisi',
+            'nama_fasilitas.unique' => 'Nama fasilitas sudah ada',
+        ]);
+
+        Fasilitas::create($request->all());
+
+        toast('Fasilitas berhasil ditambahkan.', 'success');
+        return redirect()->route('fasilitas.index');
     }
 
     /**
-     * Display the specified resource.
+     * Menampilkan form edit fasilitas.
      */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $fasilitas = Fasilitas::findOrFail($id);
+        return view('admin.fasilitas.edit', compact('fasilitas'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Menyimpan perubahan data fasilitas.
      */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $fasilitas = Fasilitas::findOrFail($id);
+
+        $request->validate([
+            'nama_fasilitas' => 'required|unique:fasilitas,nama_fasilitas,' . $fasilitas->id,
+        ], [
+            'nama_fasilitas.required' => 'Nama fasilitas wajib diisi',
+            'nama_fasilitas.unique' => 'Nama fasilitas sudah digunakan',
+        ]);
+
+        $fasilitas->update($request->all());
+
+        toast('Fasilitas berhasil diperbarui.', 'success');
+        return redirect()->route('fasilitas.index');
     }
 
     /**
-     * Update the specified resource in storage.
+     * Menghapus data fasilitas.
      */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
+        $fasilitas = Fasilitas::findOrFail($id);
+        $fasilitas->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        toast('Fasilitas berhasil dihapus.', 'success');
+        return redirect()->route('fasilitas.index');
     }
 }

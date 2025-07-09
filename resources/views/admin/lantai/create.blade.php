@@ -1,57 +1,52 @@
 @extends('layouts.backend')
+
 @section('content')
 <div class="container-fluid">
     <div class="row">
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    Tambah lantai
+                    Tambah Lantai
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('lantai.store') }}" method="post" enctype="multipart/form-data">
+
+                    {{-- Menampilkan pesan error jika ada --}}
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('lantai.store') }}" class="form" method="post">
                         @csrf
 
-                        {{-- Dropdown Gedung --}}
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-2">
-                                    <label for="">Gedung</label>
-                                    <select name="gedung_id" class="form-control @error('gedung_id') is-invalid @enderror">
-                                        <option value="">-- Pilih Gedung --</option>
-                                        @foreach ($gedung as $g)
-                                            <option value="{{ $g->id }}">{{ $g->nama_gedung }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('gedung_id')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
+                        <label for="gedung_id">Gedung</label>
+                        <select name="gedung_id" class="form-control @error('gedung_id') is-invalid @enderror">
+                            <option value="">-- Pilih Gedung --</option>
+                            @foreach ($gedung as $g)
+                                <option value="{{ $g->id }}" {{ old('gedung_id') == $g->id ? 'selected' : '' }}>
+                                    {{ $g->nama_gedung }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('gedung_id')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
 
-                        {{-- Input Lantai --}}
-                        <div class="row">
-                            <div class="col">
-                                <div class="mb-2">
-                                    <label for="">Lantai</label>
-                                    <input type="number" name="lantai"
-                                        class="form-control @error('lantai') is-invalid @enderror">
-                                    @error('lantai')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{$message}}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mb-2">
-                            <button type="submit" class="btn btn-sm btn-outline-primary">Simpan</button>
-                            <button type="reset" class="btn btn-sm btn-outline-warning">Reset</button>
-                        </div>
+                        <label for="lantai" class="mt-2">Lantai</label>
+                        <input type="number" name="lantai" class="form-control @error('lantai') is-invalid @enderror"
+                               value="{{ old('lantai') }}">
+                        @error('lantai')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                        
+                        <button type="submit" class="btn btn-info mt-3">Tambah</button>
                     </form>
+
                 </div>
             </div>
         </div>

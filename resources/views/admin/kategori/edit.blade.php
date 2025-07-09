@@ -6,11 +6,10 @@
         <div class="col">
             <div class="card">
                 <div class="card-header">
-                    Tambah Gedung
+                    Edit Kategori
                 </div>
                 <div class="card-body">
 
-                    {{-- Menampilkan pesan error jika ada --}}
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul class="mb-0">
@@ -21,18 +20,19 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('gedung.store') }}" method="post" class="form">
+                    <form action="{{ route('kategori.update', $kategori->id) }}" method="post" class="form">
                         @csrf
+                        @method('PUT')
 
-                        <label for="nama_gedung">Nama Gedung</label>
-                        <input type="text" name="nama_gedung"
-                               class="form-control @error('nama_gedung') is-invalid @enderror"
-                               value="{{ old('nama_gedung') }}">
-                        @error('nama_gedung')
+                        <label for="nama_kategori">Nama Kategori</label>
+                        <input type="text" name="nama_kategori"
+                            class="form-control @error('nama_kategori') is-invalid @enderror"
+                            value="{{ old('nama_kategori', $kategori->nama_kategori) }}">
+                        @error('nama_kategori')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
 
-                        <button type="submit" class="btn btn-info mt-3">Tambah</button>
+                        <button type="submit" class="btn btn-success mt-3">Update</button>
                         <button type="reset" class="btn btn-secondary mt-3">Reset</button>
                     </form>
 
