@@ -54,6 +54,6 @@
 <script src="https://cdn.datatables.net/2.3.2/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/2.3.2/js/dataTables.bootstrap5.js"></script>
 <script>
-    new DataTable('#dataproduct');
+    new DataTable('#datakategori');
 </script>
 @endpush

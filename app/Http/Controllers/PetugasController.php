@@ -27,7 +27,7 @@ class PetugasController extends Controller
     }
 
     /**
-     * Simpan petugas baru ke database.
+     * Simpan petugas ke database.
      */
     public function store(Request $request)
     {
@@ -48,7 +48,7 @@ class PetugasController extends Controller
         $petugas = new User();
         $petugas->name = $request->name;
         $petugas->email = $request->email;
-        $petugas->password = Hash::make($request->password); // hash password
+        $petugas->password = Hash::make($request->password); 
         $petugas->save();
 
         toast('Data petugas berhasil ditambahkan', 'success');

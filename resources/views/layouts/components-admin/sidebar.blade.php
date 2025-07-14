@@ -77,6 +77,18 @@
             </li>
             <!-- Components -->
             <!-- Cards -->
+             <li class="menu-item">
+              <a href="{{route('petugas.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">Petugas</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{{route('fasilitas.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">Fasilitas</div>
+              </a>
+            </li>
             <li class="menu-item">
               <a href="{{route('gedung.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
@@ -89,24 +101,14 @@
                 <div data-i18n="Basic">Lantai</div>
               </a>
             </li>
-            <li class="menu-item">
-              <a href="{{route('petugas.index')}}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">Petugas</div>
-              </a>
-            </li>
+            
             <li class="menu-item">
               <a href="{{route('kategori.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">Kategori</div>
               </a>
             </li>
-            <li class="menu-item">
-              <a href="{{route('fasilitas.index')}}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">Fasilitas</div>
-              </a>
-            </li>
+            
             <li class="menu-item">
               <a href="{{route('ruangan.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>

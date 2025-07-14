@@ -21,9 +21,21 @@
                 <div>{{ $ruangan->deskripsi }}</div>
             </div>
 
+            {{-- Tambahan: Lantai --}}
+            <div class="mb-3">
+                <label><strong>Lantai:</strong></label>
+                <div>{{ $ruangan->lantai->lantai ?? '-' }}</div>
+            </div>
+
             <div class="mb-3">
                 <label><strong>Fasilitas:</strong></label>
-                <div>{{ $ruangan->fasilitas }}</div>
+                <div>
+                    @forelse ($ruangan->fasilitas as $fasilitas)
+                        • {{ $fasilitas->nama_fasilitas }}<br>
+                    @empty
+                        <em>Tidak ada fasilitas</em>
+                    @endforelse
+                </div>
             </div>
 
             <div class="mb-3">
@@ -36,13 +48,12 @@
             </div>
 
             <div class="mb-3">
-                <label><strong>Latitude:</strong></label>
-                <div>{{ $ruangan->latitude }}</div>
-            </div>
-
-            <div class="mb-3">
-                <label><strong>Longitude:</strong></label>
-                <div>{{ $ruangan->longitude }}</div>
+                <label><strong>Denah:</strong></label><br>
+                @if ($ruangan->denah)
+                    <img src="{{ asset('storage/' . $ruangan->denah) }}" width="200">
+                @else
+                    <em>Tidak ada denah</em>
+                @endif
             </div>
 
             <a href="{{ route('ruangan.index') }}" class="btn btn-secondary mt-3">Kembali</a>

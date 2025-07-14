@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('deskripsi')->nullable();
             $table->string('gambar');
             $table->unsignedBigInteger('lantai_id');
+            $table->string('denah');
             $table->timestamps();
 
             $table->foreign('lantai_id')->references('id')->on('lantais')->onDelete('cascade'); 

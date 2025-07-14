@@ -1,0 +1,28 @@
+/* tentang.css */
+
+.tentang-section {
+  padding: 60px 0;
+}
+
+.about-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.text-content {
+  flex: 1 1 40%;
+}
+
+.image-content {
+  flex: 1 1 55%;
+}
+
+.image-content img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+}

@@ -7,7 +7,7 @@
 @section('content')
 <div class="container-fluid">
     <div class="row">
-        <div class="col">
+        <div class="col-12">
             <div class="card">
                 <div class="card-header bg-primary text-white">
                     Data Ruangan
@@ -23,9 +23,11 @@
                                     <th>No</th>
                                     <th>Nama Ruangan</th>
                                     <th>Kategori</th>
+                                    <th>Deskripsi</th>
+                                    <th>Lokasi</th>
                                     <th>Fasilitas</th>
                                     <th>Gambar</th>
-                                    <th>Koordinat</th>
+                                    <th>Denah</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -35,7 +37,15 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $data->nama_ruangan }}</td>
                                     <td>{{ $data->kategori->nama_kategori ?? '-' }}</td>
-                                    <td>{{ Str::limit($data->fasilitas, 40) }}</td>
+                                    <td>{{ Str::limit($data->deskripsi, 50) }}</td>
+                                    <td>
+                                        {{ $data->lantai->gedung->nama_gedung ?? '-' }} - Lantai {{ $data->lantai->lantai ?? '-' }}
+                                    </td>
+
+                                    <td>@foreach ($data->fasilitas as $f)
+                                        {{ $f->nama_fasilitas }}<br>
+                                         @endforeach
+                                    </td>
                                     <td>
                                         @if($data->gambar)
                                             <img src="{{ asset('storage/' . $data->gambar) }}" alt="gambar" width="70">
@@ -43,12 +53,19 @@
                                             <em>Tidak ada</em>
                                         @endif
                                     </td>
+
                                     <td>
-                                        <small>{{ $data->latitude ?? '-' }}, {{ $data->longitude ?? '-' }}</small>
+                                        @if($data->denah)
+                                            <img src="{{ asset('storage/' . $data->denah) }}" alt="denah" width="70">
+                                        @else
+                                            <em>Tidak ada</em>
+                                        @endif
                                     </td>
+                                    
+                                    
                                     <td>
-                                        <a href="{{ route('ruangan.edit', $data->id) }}" class="btn btn-sm btn-warning">Edit</a> |
-                                        <a href="{{ route('ruangan.show', $data->id) }}" class="btn btn-sm btn-success">Show</a> |
+                                        <a href="{{ route('ruangan.edit', $data->id) }}" class="btn btn-sm btn-warning me-1 mb-1">Edit</a> 
+                                        <a href="{{ route('ruangan.show', $data->id) }}" class="btn btn-sm btn-success me-1 mb-1">Show</a> 
                                         <form action="{{ route('ruangan.destroy', $data->id) }}" method="POST" style="display:inline-block;" class="delete-confirm">
                                             @csrf
                                             @method('DELETE')

@@ -27,9 +27,9 @@
                         <label for="gedung_id">Gedung</label>
                         <select name="gedung_id" class="form-control @error('gedung_id') is-invalid @enderror">
                             <option value="">-- Pilih Gedung --</option>
-                            @foreach ($gedung as $g)
-                                <option value="{{ $g->id }}" {{ old('gedung_id') == $g->id ? 'selected' : '' }}>
-                                    {{ $g->nama_gedung }}
+                            @foreach ($gedung as $data)
+                                <option value="{{ $data->id }}" {{ old('gedung_id') == $data->id ? 'selected' : '' }}>
+                                    {{ $data->nama_gedung }}
                                 </option>
                             @endforeach
                         </select>
