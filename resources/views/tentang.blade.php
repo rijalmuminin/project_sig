@@ -6,10 +6,9 @@
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-5 mx-auto">
-                <h1 class="mb-5 text-center"><span>About Us</span></h1>
+                <h1 class="mb-5 text-center"><span>tentang</span></h1>
                 <div class="intro-desc text-left">
-                    <div class="line"></div>
-                    <p>Delectus voluptatum distinctio quos eius excepturi sunt pariatur, aut, doloribus officia ea molestias beatae laudantium...</p>
+                    
                 </div>
             </div>
         </div>
